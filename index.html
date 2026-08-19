@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0810">
+<title>Vinu AI</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#09070d;color:#f7f3ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.app{min-height:100vh;display:flex;flex-direction:column;max-width:720px;margin:auto;background:linear-gradient(180deg,#100a18,#09070d)}
+header{padding:22px 20px 14px;border-bottom:1px solid #2a2033;position:sticky;top:0;background:#100a18ee;backdrop-filter:blur(12px);z-index:2}
+.logo{display:flex;align-items:center;gap:11px}.mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#9b5cff,#5d2bd6);display:grid;place-items:center;font-weight:800;font-size:20px;box-shadow:0 8px 25px #6e36d833}
+.name{font-size:22px;font-weight:800;letter-spacing:.2px}.sub{font-size:12px;color:#a99fb2;margin-top:2px}
+main{flex:1;padding:24px 18px 120px}.welcome{text-align:center;padding:28px 10px 22px}.welcome h1{font-size:31px;margin:0 0 8px}.welcome p{color:#aaa1b0;margin:0}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.chip{background:#15101b;border:1px solid #2c2235;color:#e9e0f1;border-radius:16px;padding:15px;text-align:left;cursor:pointer}.chip b{display:block;margin-bottom:5px}.chip span{font-size:12px;color:#9f96a7}
+.msg{display:flex;margin:12px 0}.bubble{max-width:86%;padding:13px 15px;border-radius:17px;line-height:1.45;font-size:15px;white-space:pre-wrap}.bot .bubble{background:#17111e;border:1px solid #2b2133}.user{justify-content:flex-end}.user .bubble{background:#6d35db}.typing{color:#a99fb2}
+.composer{position:fixed;bottom:0;left:0;right:0;max-width:720px;margin:auto;padding:12px 14px calc(12px + env(safe-area-inset-bottom));background:#09070deF;border-top:1px solid #2a2033;backdrop-filter:blur(12px)}
+.row{display:flex;gap:9px;background:#15101b;border:1px solid #32263c;border-radius:20px;padding:7px}.row input{flex:1;background:none;border:0;outline:0;color:white;font-size:15px;padding:9px}.send{border:0;border-radius:15px;background:#7b3ff0;color:white;width:44px;font-size:19px;cursor:pointer}
+.small{font-size:11px;text-align:center;color:#716879;margin-top:7px}
+</style>
+</head>
+<body><div class="app">
+<header><div class="logo"><div class="mark">V</div><div><div class="name">Vinu</div><div class="sub">Your Personal AI Assistant</div></div></div></header>
+<main id="chat"><section class="welcome" id="welcome"><h1>Hi! Main Vinu hoon 👋</h1><p>Hindi, English aur Hinglish mein baat karo.</p></section>
+<div class="chips" id="chips">
+<button class="chip" onclick="quick('Mujhe padhai mein help chahiye')"><b>📚 Study</b><span>Learn & understand</span></button>
+<button class="chip" onclick="quick('Mere liye ek idea do')"><b>💡 Ideas</b><span>Brainstorm anything</span></button>
+<button class="chip" onclick="quick('Mere liye ek message likho')"><b>✍️ Writing</b><span>Write better</span></button>
+<button class="chip" onclick="quick('Mujhe kuch interesting batao')"><b>✨ Explore</b><span>Ask anything</span></button>
+</div></main>
+<div class="composer"><div class="row"><input id="input" placeholder="Vinu se kuch bhi poochho…" onkeydown="if(event.key==='Enter')send()"><button class="send" onclick="send()">➤</button></div><div class="small">Vinu • Free prototype</div></div>
+</div>
+<script>
+const chat=document.getElementById('chat'), welcome=document.getElementById('welcome'), chips=document.getElementById('chips'), input=document.getElementById('input');
+function add(text,who){const d=document.createElement('div');d.className='msg '+who;const b=document.createElement('div');b.className='bubble';b.textContent=text;d.appendChild(b);chat.appendChild(d);scrollTo(0,document.body.scrollHeight)}
+function quick(t){input.value=t;send()}
+function reply(t){
+ const x=t.toLowerCase();
+ if(x.includes('padhai')||x.includes('study')) return 'Bilkul! 📚 Batao kis subject ya topic mein help chahiye. Main simple Hindi/Hinglish mein samjha dunga.';
+ if(x.includes('idea')) return 'Bilkul 💡 Tum kis cheez ke liye idea chahte ho—business, content, gift, app ya kuch aur?';
+ if(x.includes('message')||x.includes('likho')) return 'Bilkul ✍️ Batao message kisko bhejna hai aur kis tone mein—formal, friendly ya cute?';
+ if(x.includes('interesting')) return 'Fun fact ✨ Octopus ke teen hearts hote hain. Aur haan, Vinu se tum Hindi, English ya Hinglish mein baat kar sakte ho!';
+ return 'Main Vinu hoon 💜 Abhi main free prototype mode mein hoon. Tum mujhe Hindi, English ya Hinglish mein message bhej sakte ho. Real AI answers ke liye next step mein AI connection add karna hoga.';
+}
+function send(){const t=input.value.trim();if(!t)return;welcome.style.display='none';chips.style.display='none';add(t,'user');input.value='';setTimeout(()=>add(reply(t),'bot'),350)}
+</script></body></html>
