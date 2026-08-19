@@ -2,280 +2,251 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vinu AI</title>
-
 <style>
 *{box-sizing:border-box}
-
 body{
   margin:0;
-  background:#0b0818;
-  color:white;
   font-family:Arial,sans-serif;
+  background:#090714;
+  color:white;
 }
-
-.app{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-
 header{
-  padding:22px 20px 14px;
+  padding:28px 22px;
   border-bottom:1px solid #29233d;
 }
-
 .logo{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:18px;
 }
-
-.logo-icon{
-  width:44px;
-  height:44px;
-  border-radius:14px;
-  background:#7c3aed;
+.logoIcon{
+  width:70px;
+  height:70px;
+  border-radius:22px;
+  background:#7135e8;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:24px;
+  font-size:38px;
 }
-
-.name{
-  font-size:22px;
-  font-weight:800;
-}
-
-.sub{
-  color:#aaa;
-  font-size:12px;
-}
-
+h1{margin:0;font-size:42px}
+.subtitle{color:#aaa;margin-top:4px;font-size:18px}
 main{
-  flex:1;
-  padding:20px 18px 120px;
-  max-width:700px;
-  width:100%;
+  padding:45px 22px 170px;
+  max-width:850px;
   margin:auto;
 }
-
-.welcome{
-  text-align:center;
-  margin:30px 0;
-}
-
-.welcome h1{
-  margin:0 0 8px;
-  font-size:28px;
-}
-
-.welcome p{
-  color:#aaa;
-}
-
-.chips{
+.hero{text-align:center}
+.hero h2{font-size:42px;margin:30px 0 20px}
+.hero p{color:#aaa;font-size:21px}
+.quick{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:20px;
+  gap:18px;
+  margin-top:45px;
 }
-
-.chip{
-  background:#171229;
-  border:1px solid #30264d;
-  color:#ddd;
-  border-radius:14px;
-  padding:13px;
-  text-align:center;
+.quick button{
+  padding:25px;
+  border-radius:25px;
+  border:1px solid #3b315b;
+  background:#151025;
+  color:white;
+  font-size:21px;
 }
-
+#chat{
+  margin-top:45px;
+}
 .msg{
-  display:flex;
-  margin:12px 0;
-}
-
-.bubble{
-  max-width:88%;
-  padding:13px 15px;
-  border-radius:16px;
+  padding:18px 22px;
+  border-radius:25px;
+  margin:18px 0;
+  max-width:85%;
+  font-size:19px;
   line-height:1.5;
-  white-space:pre-wrap;
 }
-
 .user{
-  justify-content:flex-end;
+  margin-left:auto;
+  background:#7135e8;
 }
-
-.user .bubble{
-  background:#6d28d9;
-}
-
-.ai .bubble{
+.ai{
   background:#171229;
-  border:1px solid #30264d;
+  border:1px solid #33294d;
 }
-
-.composer{
+.inputArea{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  background:#0b0818;
+  padding:18px;
+  background:#090714;
   border-top:1px solid #29233d;
-  padding:12px;
-}
-
-.row{
   display:flex;
-  gap:9px;
-  max-width:700px;
-  margin:auto;
+  gap:12px;
 }
-
 input{
   flex:1;
-  background:#171229;
+  padding:18px;
+  border-radius:22px;
+  border:1px solid #40355f;
+  background:#151025;
   color:white;
-  border:1px solid #3b3157;
-  border-radius:14px;
-  padding:14px;
-  outline:none;
+  font-size:18px;
 }
-
-button{
+.send{
+  padding:0 30px;
   border:0;
-  border-radius:14px;
-  padding:0 18px;
-  background:#7c3aed;
+  border-radius:22px;
+  background:#7135e8;
   color:white;
+  font-size:20px;
   font-weight:bold;
-  font-size:15px;
 }
-
-.small{
-  text-align:center;
-  color:#777;
-  font-size:11px;
-  margin-top:8px;
+.send:disabled{opacity:.5}
+@media(max-width:600px){
+  h1{font-size:32px}
+  .hero h2{font-size:38px}
+  .quick{gap:12px}
+  .quick button{font-size:17px;padding:20px 8px}
 }
 </style>
 </head>
-
 <body>
-
-<div class="app">
-
 <header>
   <div class="logo">
-    <div class="logo-icon">✦</div>
+    <div class="logoIcon">✦</div>
     <div>
-      <div class="name">Vinu AI</div>
-      <div class="sub">Tumhara personal AI assistant</div>
+      <h1>Vinu AI</h1>
+      <div class="subtitle">Tumhara personal AI assistant</div>
     </div>
   </div>
 </header>
-
 <main>
-
-<div class="welcome">
-  <h1>Namaste 👋</h1>
+<section class="hero">
+  <h2>Namaste 👋</h2>
   <p>Main Vinu AI hoon. Mujhse kuch bhi poochho.</p>
+</section>
+<div class="quick">
+  <button onclick="quickAsk('Mujhe motivate karo ❤️')">💜 Motivation</button>
+  <button onclick="quickAsk('Mujhe ek interesting story sunao 📖')">📖 Story</button>
+  <button onclick="quickAsk('Mujhe koi useful study tip do 📚')">📚 Study</button>
+  <button onclick="quickAsk('Mujhe kuch creative ideas do ✨')">✨ Ideas</button>
 </div>
-
-<div class="chips">
-  <div class="chip" onclick="quick('Mujhe motivate karo')">💜 Motivation</div>
-  <div class="chip" onclick="quick('Mere liye ek story likho')">📖 Story</div>
-  <div class="chip" onclick="quick('Mujhe padhai mein help karo')">📚 Study</div>
-  <div class="chip" onclick="quick('Aaj ka din productive kaise banao?')">✨ Ideas</div>
-</div>
-
 <div id="chat"></div>
-
 </main>
-
-<div class="composer">
-  <div class="row">
-    <input id="input" placeholder="Vinu se kuch poochho..." 
-           onkeydown="if(event.key==='Enter')send()">
-    <button onclick="send()">Send</button>
-  </div>
-  <div class="small">Vinu AI • Powered by Gemini</div>
+<div class="inputArea">
+  <input id="input" placeholder="Vinu se kuch poochho..." />
+  <button class="send" id="sendBtn" onclick="sendMessage()">Send</button>
 </div>
-
-</div>
-
 <script>
-
-const KEY_NAME = "vinu_gemini_key";
-
-function add(text,who="ai"){
-  const chat=document.getElementById("chat");
-
-  const msg=document.createElement("div");
-  msg.className="msg "+who;
-
-  const bubble=document.createElement("div");
-  bubble.className="bubble";
-  bubble.textContent=text;
-
-  msg.appendChild(bubble);
-  chat.appendChild(msg);
-
-  window.scrollTo(0,document.body.scrollHeight);
-}
-
-function quick(text){
-  document.getElementById("input").value=text;
-  send();
-}
-
-async function send(){
-
-  const input=document.getElementById("input");
-  const text=input.value.trim();
-
-  if(!text)return;
-
-  add(text,"user");
-  input.value="";
-
-  let key=localStorage.getItem(KEY_NAME);
-
+const API_KEY_NAME = "vinu_gemini_api_key";
+function getApiKey(){
+  let key = localStorage.getItem(API_KEY_NAME);
   if(!key){
-    key=prompt("");
-
-    if(!key){
-      add("API key nahi mili 😕");
-      return;
+    key = prompt("Vinu AI ki Gemini API key paste karo:");
+    if(key){
+      localStorage.setItem(API_KEY_NAME, key.trim());
     }
-
-    localStorage.setItem(KEY_NAME,key.trim());
   }
-
-  add("Soch raha hoon... 💜","ai");
-
+  return key;
+}
+function addMessage(text,type){
+  const chat = document.getElementById("chat");
+  const div = document.createElement("div");
+  div.className = "msg " + type;
+  div.textContent = text;
+  chat.appendChild(div);
+  window.scrollTo({
+    top:document.body.scrollHeight,
+    behavior:"smooth"
+  });
+}
+async function sendMessage(){
+  const input = document.getElementById("input");
+  const button = document.getElementById("sendBtn");
+  const text = input.value.trim();
+  if(!text) return;
+  addMessage(text,"user");
+  input.value="";
+  button.disabled=true;
+  const key = getApiKey();
+  if(!key){
+    addMessage("Gemini API key nahi mili. 😕","ai");
+    button.disabled=false;
+    return;
+  }
+  addMessage("Soch raha hoon... 💜","ai");
   try{
-
-const response = await fetch(
-  const response = await fetch(
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + encodeURIComponent(key),
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      contents: [
-        {
-          parts: [
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key="
+      + encodeURIComponent(key),
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          systemInstruction:{
+            parts:[
+              {
+                text:
+                "Tum Vinu AI ho. Tum ek friendly personal AI assistant ho. " +
+                "User se Hindi ya Hinglish me natural, helpful aur simple language me baat karo. " +
+                "User jo bhi pooche uska seedha useful answer do."
+              }
+            ]
+          },
+          contents:[
             {
-              text: "Tum Vinu AI ho. User ko Hindi/Hinglish me friendly jawab do.\nUser: " + text: "Tum Vinu AI ho. User ko Hindi/Hinglish me friendly jawab do.\nUser: " + text
+              role:"user",
+              parts:[
+                {
+                  text:text
+                }
+              ]
             }
           ]
-        }
-      ]
-    })
+        })
+      }
+    );
+    const data = await response.json();
+    const messages = document.querySelectorAll(".ai");
+    const lastMessage = messages[messages.length-1];
+    if(!response.ok){
+      lastMessage.textContent =
+        "API error: " +
+        (data?.error?.message || "Gemini response nahi de raha.");
+      button.disabled=false;
+      return;
+    }
+    const answer =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if(answer){
+      lastMessage.textContent=answer;
+    }else{
+      lastMessage.textContent="Vinu ko answer nahi mila 😕";
+    }
+  }catch(error){
+    const messages = document.querySelectorAll(".ai");
+    const lastMessage = messages[messages.length-1];
+    lastMessage.textContent =
+      "Internet/API connection problem hai. 😕";
+  }
+  button.disabled=false;
+}
+function quickAsk(text){
+  document.getElementById("input").value=text;
+  sendMessage();
+}
+document.getElementById("input").addEventListener(
+  "keydown",
+  function(e){
+    if(e.key==="Enter"){
+      sendMessage();
+    }
   }
 );
+</script>
+</body>
+</html>
