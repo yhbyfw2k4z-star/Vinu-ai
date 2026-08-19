@@ -1,87 +1,280 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0810">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vinu AI</title>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#09070d;color:#f7f3ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.app{min-height:100vh;display:flex;flex-direction:column;max-width:720px;margin:auto;background:linear-gradient(180deg,#100a18,#09070d)}
-header{padding:22px 20px 14px;border-bottom:1px solid #2a2033;position:sticky;top:0;background:#100a18ee;backdrop-filter:blur(12px);z-index:2}
-.logo{display:flex;align-items:center;gap:11px}.mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#9b5cff,#5d2bd6);display:grid;place-items:center;font-weight:800;font-size:20px;box-shadow:0 8px 25px #6e36d833}
-.name{font-size:22px;font-weight:800;letter-spacing:.2px}.sub{font-size:12px;color:#a99fb2;margin-top:2px}
-main{flex:1;padding:24px 18px 120px}.welcome{text-align:center;padding:28px 10px 22px}.welcome h1{font-size:31px;margin:0 0 8px}.welcome p{color:#aaa1b0;margin:0}
-.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.chip{background:#15101b;border:1px solid #2c2235;color:#e9e0f1;border-radius:16px;padding:15px;text-align:left;cursor:pointer}.chip b{display:block;margin-bottom:5px}.chip span{font-size:12px;color:#9f96a7}
-.msg{display:flex;margin:12px 0}.bubble{max-width:86%;padding:13px 15px;border-radius:17px;line-height:1.45;font-size:15px;white-space:pre-wrap}.bot .bubble{background:#17111e;border:1px solid #2b2133}.user{justify-content:flex-end}.user .bubble{background:#6d35db}.typing{color:#a99fb2}
-.composer{position:fixed;bottom:0;left:0;right:0;max-width:720px;margin:auto;padding:12px 14px calc(12px + env(safe-area-inset-bottom));background:#09070deF;border-top:1px solid #2a2033;backdrop-filter:blur(12px)}
-.row{display:flex;gap:9px;background:#15101b;border:1px solid #32263c;border-radius:20px;padding:7px}.row input{flex:1;background:none;border:0;outline:0;color:white;font-size:15px;padding:9px}.send{border:0;border-radius:15px;background:#7b3ff0;color:white;width:44px;font-size:19px;cursor:pointer}
-.small{font-size:11px;text-align:center;color:#716879;margin-top:7px}
-</style>
-</head>
-<body><div class="app">
-<header><div class="logo"><div class="mark">V</div><div><div class="name">Vinu</div><div class="sub">Your Personal AI Assistant</div></div></div></header>
-<main id="chat"><section class="welcome" id="welcome"><h1>Hi! Main Vinu hoon 👋</h1><p>Hindi, English aur Hinglish mein baat karo.</p></section>
-<div class="chips" id="chips">
-<button class="chip" onclick="quick('Mujhe padhai mein help chahiye')"><b>📚 Study</b><span>Learn & understand</span></button>
-<button class="chip" onclick="quick('Mere liye ek idea do')"><b>💡 Ideas</b><span>Brainstorm anything</span></button>
-<button class="chip" onclick="quick('Mere liye ek message likho')"><b>✍️ Writing</b><span>Write better</span></button>
-<button class="chip" onclick="quick('Mujhe kuch interesting batao')"><b>✨ Explore</b><span>Ask anything</span></button>
-</div></main>
-<div class="composer"><div class="row"><input id="input" placeholder="Vinu se kuch bhi poochho…" onkeydown="value.trim();if(!t)return;welcome.style.display='none';chips.style.display='none';add(t,'user');input.value='';setTimeout(()=>add(reply(t),'bot'),350)}
-</script></body></html>const chat = document.getElementById("chat");
-const input = document.querySelector("input");
 
-function add(text, who = "ai") {
-  const d = document.createElement("div");
-  d.className = "msg " + who;
-  d.innerHTML = `<div class="bubble">${text}</div>`;
-  chat.appendChild(d);
-  chat.scrollTop = chat.scrollHeight;
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#0b0818;
+  color:white;
+  font-family:Arial,sans-serif;
 }
 
-function quick(t) {
-  input.value = t;
+.app{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+header{
+  padding:22px 20px 14px;
+  border-bottom:1px solid #29233d;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo-icon{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:#7c3aed;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+}
+
+.name{
+  font-size:22px;
+  font-weight:800;
+}
+
+.sub{
+  color:#aaa;
+  font-size:12px;
+}
+
+main{
+  flex:1;
+  padding:20px 18px 120px;
+  max-width:700px;
+  width:100%;
+  margin:auto;
+}
+
+.welcome{
+  text-align:center;
+  margin:30px 0;
+}
+
+.welcome h1{
+  margin:0 0 8px;
+  font-size:28px;
+}
+
+.welcome p{
+  color:#aaa;
+}
+
+.chips{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.chip{
+  background:#171229;
+  border:1px solid #30264d;
+  color:#ddd;
+  border-radius:14px;
+  padding:13px;
+  text-align:center;
+}
+
+.msg{
+  display:flex;
+  margin:12px 0;
+}
+
+.bubble{
+  max-width:88%;
+  padding:13px 15px;
+  border-radius:16px;
+  line-height:1.5;
+  white-space:pre-wrap;
+}
+
+.user{
+  justify-content:flex-end;
+}
+
+.user .bubble{
+  background:#6d28d9;
+}
+
+.ai .bubble{
+  background:#171229;
+  border:1px solid #30264d;
+}
+
+.composer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#0b0818;
+  border-top:1px solid #29233d;
+  padding:12px;
+}
+
+.row{
+  display:flex;
+  gap:9px;
+  max-width:700px;
+  margin:auto;
+}
+
+input{
+  flex:1;
+  background:#171229;
+  color:white;
+  border:1px solid #3b3157;
+  border-radius:14px;
+  padding:14px;
+  outline:none;
+}
+
+button{
+  border:0;
+  border-radius:14px;
+  padding:0 18px;
+  background:#7c3aed;
+  color:white;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.small{
+  text-align:center;
+  color:#777;
+  font-size:11px;
+  margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">✦</div>
+    <div>
+      <div class="name">Vinu AI</div>
+      <div class="sub">Tumhara personal AI assistant</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<div class="welcome">
+  <h1>Namaste 👋</h1>
+  <p>Main Vinu AI hoon. Mujhse kuch bhi poochho.</p>
+</div>
+
+<div class="chips">
+  <div class="chip" onclick="quick('Mujhe motivate karo')">💜 Motivation</div>
+  <div class="chip" onclick="quick('Mere liye ek story likho')">📖 Story</div>
+  <div class="chip" onclick="quick('Mujhe padhai mein help karo')">📚 Study</div>
+  <div class="chip" onclick="quick('Aaj ka din productive kaise banao?')">✨ Ideas</div>
+</div>
+
+<div id="chat"></div>
+
+</main>
+
+<div class="composer">
+  <div class="row">
+    <input id="input" placeholder="Vinu se kuch poochho..." 
+           onkeydown="if(event.key==='Enter')send()">
+    <button onclick="send()">Send</button>
+  </div>
+  <div class="small">Vinu AI • Powered by Gemini</div>
+</div>
+
+</div>
+
+<script>
+
+const KEY_NAME = "vinu_gemini_key";
+
+function add(text,who="ai"){
+  const chat=document.getElementById("chat");
+
+  const msg=document.createElement("div");
+  msg.className="msg "+who;
+
+  const bubble=document.createElement("div");
+  bubble.className="bubble";
+  bubble.textContent=text;
+
+  msg.appendChild(bubble);
+  chat.appendChild(msg);
+
+  window.scrollTo(0,document.body.scrollHeight);
+}
+
+function quick(text){
+  document.getElementById("input").value=text;
   send();
 }
 
-async function send() {
-  const t = input.value.trim();
-  if (!t) return;
+async function send(){
 
-  add(t, "user");
-  input.value = "";
+  const input=document.getElementById("input");
+  const text=input.value.trim();
 
-  let key = localStorage.getItem("vinu_gemini_key");
+  if(!text)return;
 
-  if (!key) {
-    key = prompt("Vinu AI ke liye apni Gemini API key paste karo:");
-    if (!key) {
+  add(text,"user");
+  input.value="";
+
+  let key=localStorage.getItem(KEY_NAME);
+
+  if(!key){
+    key=prompt("Vinu AI ke liye apni Gemini API key paste karo:");
+
+    if(!key){
       add("API key nahi mili 😕");
       return;
     }
-    localStorage.setItem("vinu_gemini_key", key.trim());
+
+    localStorage.setItem(KEY_NAME,key.trim());
   }
 
-  add("Soch raha hoon... 💜");
+  add("Soch raha hoon... 💜","ai");
 
-  try {
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" +
-      encodeURIComponent(key),
+  try{
+
+    const response=await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key="
+      +encodeURIComponent(key),
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
         },
-        body: JSON.stringify({
-          contents: [
+        body:JSON.stringify({
+          contents:[
             {
-              parts: [
+              parts:[
                 {
                   text:
-                    "Tum Vinu AI ho. Hindi/Hinglish me friendly aur helpful jawab do. User: " +
-                    t
+                  "Tum Vinu AI ho, ek friendly personal AI assistant. " +
+                  "User ko Hindi/Hinglish mein simple aur helpful jawab do.\n\n" +
+                  "User: "+text
                 }
               ]
             }
@@ -90,21 +283,30 @@ async function send() {
       }
     );
 
-    const data = await response.json();
+    const data=await response.json();
 
-    const answer =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "Sorry, abhi answer nahi mil paaya 😕";
+    const answer=
+      data?.candidates?.[0]?.content?.parts?.[0]?.text
+      ||"Sorry, abhi answer nahi mil paaya 😕";
 
-    const msgs = document.querySelectorAll(".msg");
-    if (msgs.length) msgs[msgs.length - 1].remove();
+    const msgs=document.querySelectorAll(".msg.ai");
 
-    add(answer, "ai");
+    if(msgs.length){
+      msgs[msgs.length-1].querySelector(".bubble").textContent=answer;
+    }
 
-  } catch (error) {
-    const msgs = document.querySelectorAll(".msg");
-    if (msgs.length) msgs[msgs.length - 1].remove();
+  }catch(error){
 
-    add("Connection error 😔");
+    const msgs=document.querySelectorAll(".msg.ai");
+
+    if(msgs.length){
+      msgs[msgs.length-1].querySelector(".bubble").textContent=
+        "Connection error 😔 API key check karo.";
+    }
   }
 }
+
+</script>
+
+</body>
+</html>
